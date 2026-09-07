@@ -18,6 +18,7 @@ import org.springframework.security.core.Authentication;
 import com.ftabah.giftme.application.AccountSecurityService;
 import com.ftabah.giftme.application.port.TokenService;
 
+/** Endpoints de autenticação, verificação, recuperação e logout. */
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {

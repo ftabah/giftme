@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/** Permite buscar perfis e aplica a visibilidade conforme a amizade. */
 @RestController
 @RequestMapping("/api/profiles")
 public class ProfileSearchController {
@@ -36,7 +37,7 @@ public class ProfileSearchController {
     @GetMapping("/search")
     public List<ProfileController.ProfileResponse> search(@RequestParam String q, Authentication authentication) {
         if (q == null || q.isBlank()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Search query is required");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O termo de busca é obrigatório");
         }
         List<Profile> matches = new ArrayList<>(profiles.findByNameQuery(q));
         accounts.findByEmail(q.trim().toLowerCase()).flatMap(account -> profiles.findByUserId(account.id()))
@@ -55,7 +56,7 @@ public class ProfileSearchController {
         UUID requesterId = UUID.fromString(authentication.getName());
         return profiles.findByUserId(userId).map(profile -> ProfileController.ProfileResponse.from(profile,
                         canSeeMeasurements(requesterId, profile.userId())))
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Profile not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Perfil não encontrado"));
     }
 
     private boolean canSeeMeasurements(UUID requesterId, UUID profileId) {

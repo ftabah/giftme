@@ -10,6 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.UUID;
 
+/** Coordena cadastro, login e emissão de sessões autenticadas. */
 @Service
 public class AuthService {
 
@@ -30,7 +31,7 @@ public class AuthService {
         validatePassword(rawPassword);
         String normalizedEmail = normalizeEmail(email);
         if (accounts.findByEmail(normalizedEmail).isPresent()) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Email already in use");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "O e-mail já está em uso");
         }
         Account account = accounts.save(new Account(UUID.randomUUID(), normalizedEmail, passwordHasher.hash(rawPassword)));
         accountSecurity.sendVerification(account);
@@ -39,25 +40,25 @@ public class AuthService {
 
     public AuthResponse login(String email, String rawPassword) {
         Account account = accounts.findByEmail(normalizeEmail(email))
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid credentials"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Credenciais inválidas"));
         if (accountSecurity.requiresVerification() && !accountSecurity.isVerified(account.id())) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Email must be verified before login");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "O e-mail deve ser verificado antes do login");
         }
         if (!passwordHasher.matches(rawPassword, account.passwordHash())) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid credentials");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Credenciais inválidas");
         }
         return new AuthResponse(account.id(), tokenService.create(account.id()));
     }
 
     private static void validatePassword(String password) {
         if (password == null || password.length() < 8) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Password must contain at least 8 characters");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A senha deve conter pelo menos 8 caracteres");
         }
     }
 
     private static String normalizeEmail(String email) {
         if (email == null || email.isBlank()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email is required");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O e-mail é obrigatório");
         }
         return email.trim().toLowerCase();
     }

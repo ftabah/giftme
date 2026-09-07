@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+/** Porta de persistência e consulta de solicitações de amizade. */
 public interface FriendshipRepository {
 
     Optional<FriendshipRequest> findById(UUID id);

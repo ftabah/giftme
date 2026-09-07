@@ -19,6 +19,7 @@ import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
+/** Expõe envio e consulta das solicitações de amizade do usuário autenticado. */
 @RestController
 @RequestMapping("/api/friendships")
 public class FriendshipController {
@@ -35,12 +36,12 @@ public class FriendshipController {
     public FriendshipResponse send(Authentication authentication, @Valid @RequestBody FriendshipRequestBody body) {
         UUID requesterId = userId(authentication);
         if (requesterId.equals(body.recipientId())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cannot request yourself");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Não é possível enviar solicitação para si mesmo");
         }
         if (accounts.findById(body.recipientId()).isEmpty()
                 || friendships.findExistingPair(requesterId, body.recipientId()).isPresent()
                 || friendships.findExistingPair(body.recipientId(), requesterId).isPresent()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid friendship request");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Solicitação de amizade inválida");
         }
         FriendshipRequest request = FriendshipRequest.pending(UUID.randomUUID(), requesterId,
                 body.recipientId(), Instant.now());

@@ -3,6 +3,7 @@ package com.ftabah.giftme.domain;
 import java.time.Instant;
 import java.util.UUID;
 
+/** Solicitação de amizade com transições controladas pelo destinatário. */
 public final class FriendshipRequest {
 
     public enum Status { PENDING, ACCEPTED, REJECTED }
@@ -26,10 +27,10 @@ public final class FriendshipRequest {
 
     public static FriendshipRequest pending(UUID id, UUID requesterId, UUID recipientId, Instant createdAt) {
         if (id == null || requesterId == null || recipientId == null || createdAt == null) {
-            throw new IllegalArgumentException("Friendship request fields are required");
+            throw new IllegalArgumentException("Os campos da solicitação de amizade são obrigatórios");
         }
         if (requesterId.equals(recipientId)) {
-            throw new IllegalArgumentException("A user cannot request themself");
+            throw new IllegalArgumentException("Um usuário não pode enviar solicitação para si mesmo");
         }
         return new FriendshipRequest(id, requesterId, recipientId, createdAt, Status.PENDING, createdAt);
     }
@@ -44,13 +45,13 @@ public final class FriendshipRequest {
 
     private FriendshipRequest decide(UUID actorId, Instant changedAt, Status nextStatus) {
         if (!recipientId.equals(actorId)) {
-            throw new SecurityException("Only the recipient can decide");
+            throw new SecurityException("Somente o destinatário pode decidir");
         }
         if (status != Status.PENDING) {
-            throw new IllegalStateException("Only pending requests can be decided");
+            throw new IllegalStateException("Somente solicitações pendentes podem ser decididas");
         }
         if (changedAt == null) {
-            throw new IllegalArgumentException("Decision time is required");
+            throw new IllegalArgumentException("O horário da decisão é obrigatório");
         }
         return new FriendshipRequest(id, requesterId, recipientId, createdAt, nextStatus, changedAt);
     }

@@ -12,6 +12,7 @@ import java.time.Instant;
 import java.util.Date;
 import java.util.UUID;
 
+/** Cria, valida e revoga sessões JWT assinadas. */
 @Component
 public class JwtTokenService implements TokenService {
 

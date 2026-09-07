@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Base64;
 import java.util.UUID;
 
+/** Expõe leitura e atualização do perfil do usuário autenticado. */
 @RestController
 @RequestMapping("/api/profiles/me")
 public class ProfileController {
@@ -39,7 +40,7 @@ public class ProfileController {
     @GetMapping
     public ProfileResponse get(Authentication authentication) {
         return profiles.findByUserId(userId(authentication)).map(ProfileResponse::from)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Profile not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Perfil não encontrado"));
     }
 
     @PutMapping
@@ -53,6 +54,7 @@ public class ProfileController {
     }
 
     @PutMapping(value = "/photo", consumes = "multipart/form-data")
+    /** Atualiza a foto após validar formato e limite de tamanho. */
     public ProfileResponse updatePhoto(Authentication authentication, @RequestPart("file") MultipartFile file) {
         return ProfileResponse.from(photos.update(userId(authentication), file));
     }

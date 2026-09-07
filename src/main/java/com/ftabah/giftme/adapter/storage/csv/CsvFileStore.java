@@ -14,6 +14,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 
+/** Lê e substitui arquivos CSV usando escrita temporária e movimento atômico. */
 public class CsvFileStore {
 
     private final Path dataDirectory;

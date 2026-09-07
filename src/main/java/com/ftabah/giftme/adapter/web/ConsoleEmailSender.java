@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+/** Sender local que registra links; substitua por SMTP em produção. */
 @Component
 public class ConsoleEmailSender implements EmailSender {
 

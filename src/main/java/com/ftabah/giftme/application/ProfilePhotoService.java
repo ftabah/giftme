@@ -11,6 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.io.IOException;
 import java.util.UUID;
 
+/** Valida e persiste fotos de perfil recebidas por multipart. */
 @Service
 public class ProfilePhotoService {
 
@@ -22,12 +23,12 @@ public class ProfilePhotoService {
 
     public Profile update(UUID userId, MultipartFile file) {
         Profile profile = profiles.findByUserId(userId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Profile not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Perfil não encontrado"));
         try {
             ProfilePhoto photo = new ProfilePhoto(file.getBytes(), file.getContentType());
             return profiles.save(profile.withPhoto(photo));
         } catch (IOException | IllegalArgumentException exception) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Photo must be PNG or JPEG up to 2 MiB", exception);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A foto deve ser PNG ou JPEG e ter no máximo 2 MiB", exception);
         }
     }
 }

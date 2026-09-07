@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+/** Repositório de contas persistido em CSV. */
 @Repository
 public class CsvAccountRepository implements AccountRepository {
 
@@ -49,7 +50,7 @@ public class CsvAccountRepository implements AccountRepository {
         try {
             return store.read(FILE).stream().map(this::fromRow).toList();
         } catch (IOException | RuntimeException exception) {
-            throw new IllegalStateException("Could not read accounts", exception);
+            throw new IllegalStateException("Não foi possível ler as contas", exception);
         }
     }
 
@@ -57,13 +58,13 @@ public class CsvAccountRepository implements AccountRepository {
         try {
             store.replace(FILE, rows);
         } catch (IOException exception) {
-            throw new IllegalStateException("Could not write accounts", exception);
+            throw new IllegalStateException("Não foi possível gravar as contas", exception);
         }
     }
 
     private Account fromRow(List<String> row) {
         if (row.size() != 3) {
-            throw new IllegalStateException("Invalid account record");
+            throw new IllegalStateException("Registro de conta inválido");
         }
         return new Account(UUID.fromString(row.get(0)), row.get(1), row.get(2));
     }

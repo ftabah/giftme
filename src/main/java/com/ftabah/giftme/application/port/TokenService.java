@@ -2,6 +2,7 @@ package com.ftabah.giftme.application.port;
 
 import java.util.UUID;
 
+/** Porta para criação, validação e revogação de sessões autenticadas. */
 public interface TokenService {
 
     String create(UUID userId);

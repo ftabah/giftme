@@ -13,6 +13,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
+/** Extrai e valida o token Bearer de cada requisição autenticada. */
 @Component
 public class BearerTokenFilter extends OncePerRequestFilter {
 

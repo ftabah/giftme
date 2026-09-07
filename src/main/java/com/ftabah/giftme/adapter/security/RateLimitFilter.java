@@ -13,6 +13,7 @@ import java.util.ArrayDeque;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/** Limita abuso de API por endereço de origem dentro da instância da aplicação. */
 @Component
 public class RateLimitFilter extends OncePerRequestFilter {
 

@@ -17,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.time.Instant;
 import java.util.UUID;
 
+/** Controla aceite e rejeição de solicitações pelo destinatário. */
 @RestController
 @RequestMapping("/api/friendships/requests")
 public class FriendshipDecisionController {
@@ -34,19 +35,19 @@ public class FriendshipDecisionController {
                                                             @PathVariable UUID requestId,
                                                             @Valid @RequestBody DecisionBody body) {
         FriendshipRequest request = friendships.findById(requestId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Friendship request not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Solicitação de amizade não encontrada"));
         UUID recipientId = UUID.fromString(authentication.getName());
         try {
             FriendshipRequest decided = switch (body.decision().trim().toUpperCase()) {
                 case "ACCEPT", "ACCEPTED" -> request.accept(recipientId, Instant.now());
                 case "REJECT", "REJECTED" -> request.reject(recipientId, Instant.now());
-                default -> throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Decision must be ACCEPT or REJECT");
+                default -> throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A decisão deve ser ACCEPT ou REJECT");
             };
             return FriendshipController.FriendshipResponse.from(friendships.save(decided), accounts);
         } catch (SecurityException exception) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Only the recipient can decide", exception);
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Somente o destinatário pode decidir", exception);
         } catch (IllegalStateException exception) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Friendship request is no longer pending", exception);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A solicitação de amizade não está mais pendente", exception);
         }
     }
 

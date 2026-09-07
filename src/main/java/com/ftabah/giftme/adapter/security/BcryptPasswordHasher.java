@@ -4,6 +4,7 @@ import com.ftabah.giftme.application.port.PasswordHasher;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+/** Implementa hash unidirecional de senhas usando BCrypt. */
 @Component
 public class BcryptPasswordHasher implements PasswordHasher {
 

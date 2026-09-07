@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 
 import java.nio.file.Paths;
 
+/** Ponto de entrada da aplicação GiftMe e configuração dos adaptadores Spring. */
 @SpringBootApplication
 @EnableConfigurationProperties(CsvStorageProperties.class)
 public class GiftMeApplication {

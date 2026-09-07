@@ -9,6 +9,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import com.ftabah.giftme.adapter.web.EmailProperties;
 
+/** Configura autenticação stateless, rotas públicas e filtros de proteção. */
 @Configuration
 @EnableConfigurationProperties({JwtProperties.class, EmailProperties.class})
 public class SecurityConfig {

@@ -13,6 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.time.Instant;
 import java.util.UUID;
 
+/** Gerencia verificação de e-mail, recuperação de senha e validade da conta. */
 @Service
 public class AccountSecurityService {
 
@@ -39,7 +40,7 @@ public class AccountSecurityService {
 
     public void verify(String token) {
         UUID userId = tokens.consume(token, "VERIFY", Instant.now())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid or expired verification token"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Token de verificação inválido ou expirado"));
         tokens.markVerified(userId);
     }
 
@@ -52,12 +53,12 @@ public class AccountSecurityService {
 
     public void resetPassword(String token, String rawPassword) {
         if (rawPassword == null || rawPassword.length() < 8) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Password must contain at least 8 characters");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A senha deve conter pelo menos 8 caracteres");
         }
         UUID userId = tokens.consume(token, "RESET", Instant.now())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid or expired reset token"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Token de recuperação inválido ou expirado"));
         Account account = accounts.findById(userId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Account not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Conta não encontrada"));
         accounts.save(new Account(account.id(), account.email(), passwordHasher.hash(rawPassword)));
     }
 

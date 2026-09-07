@@ -8,6 +8,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.HexFormat;
 
+/** Persiste hashes de tokens JWT revogados para impedir reutilização. */
 @Repository
 public class TokenRevocationStore {
 
@@ -23,7 +24,7 @@ public class TokenRevocationStore {
         try {
             return store.read(FILE).stream().anyMatch(row -> row.size() == 1 && row.get(0).equals(digest));
         } catch (IOException exception) {
-            throw new IllegalStateException("Could not read revoked tokens", exception);
+            throw new IllegalStateException("Não foi possível ler os tokens revogados", exception);
         }
     }
 
@@ -33,7 +34,7 @@ public class TokenRevocationStore {
             rows.add(java.util.List.of(digest(token)));
             store.replace(FILE, rows);
         } catch (IOException exception) {
-            throw new IllegalStateException("Could not revoke token", exception);
+            throw new IllegalStateException("Não foi possível revogar o token", exception);
         }
     }
 
@@ -42,7 +43,7 @@ public class TokenRevocationStore {
             return HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256")
                     .digest(token.getBytes(StandardCharsets.UTF_8)));
         } catch (Exception exception) {
-            throw new IllegalStateException("Could not hash token", exception);
+            throw new IllegalStateException("Não foi possível gerar o hash do token", exception);
         }
     }
 }

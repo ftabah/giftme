@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+/** Repositório CSV das solicitações de amizade. */
 @Repository
 public class CsvFriendshipRepository implements FriendshipRepository {
 
@@ -41,7 +42,7 @@ public class CsvFriendshipRepository implements FriendshipRepository {
         try {
             store.replace(FILE, requests.stream().map(this::toRow).toList());
         } catch (IOException exception) {
-            throw new IllegalStateException("Could not write friendships", exception);
+            throw new IllegalStateException("Não foi possível gravar as amizades", exception);
         }
         return request;
     }
@@ -56,13 +57,13 @@ public class CsvFriendshipRepository implements FriendshipRepository {
         try {
             return store.read(FILE).stream().map(this::fromRow).toList();
         } catch (IOException | RuntimeException exception) {
-            throw new IllegalStateException("Could not read friendships", exception);
+            throw new IllegalStateException("Não foi possível ler as amizades", exception);
         }
     }
 
     private FriendshipRequest fromRow(List<String> row) {
         if (row.size() != 6) {
-            throw new IllegalStateException("Invalid friendship record");
+            throw new IllegalStateException("Registro de amizade inválido");
         }
         FriendshipRequest request = FriendshipRequest.pending(UUID.fromString(row.get(0)), UUID.fromString(row.get(1)),
                 UUID.fromString(row.get(2)), Instant.parse(row.get(4)));

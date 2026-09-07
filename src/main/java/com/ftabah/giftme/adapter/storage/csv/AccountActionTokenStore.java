@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+/** Armazena tokens de conta com hash, expiração e uso único. */
 @Repository
 public class AccountActionTokenStore {
 
@@ -36,7 +37,7 @@ public class AccountActionTokenStore {
             store.replace(TOKEN_FILE, rows);
             return raw;
         } catch (IOException exception) {
-            throw new IllegalStateException("Could not issue account token", exception);
+            throw new IllegalStateException("Não foi possível emitir o token da conta", exception);
         }
     }
 
@@ -60,7 +61,7 @@ public class AccountActionTokenStore {
             }
             return result;
         } catch (IOException | RuntimeException exception) {
-            throw new IllegalStateException("Could not consume account token", exception);
+            throw new IllegalStateException("Não foi possível consumir o token da conta", exception);
         }
     }
 
@@ -72,7 +73,7 @@ public class AccountActionTokenStore {
                 store.replace(VERIFIED_FILE, rows);
             }
         } catch (IOException exception) {
-            throw new IllegalStateException("Could not mark account verified", exception);
+            throw new IllegalStateException("Não foi possível marcar a conta como verificada", exception);
         }
     }
 
@@ -81,7 +82,7 @@ public class AccountActionTokenStore {
             return store.read(VERIFIED_FILE).stream()
                     .anyMatch(row -> row.size() == 1 && row.get(0).equals(userId.toString()));
         } catch (IOException exception) {
-            throw new IllegalStateException("Could not read verification state", exception);
+            throw new IllegalStateException("Não foi possível ler o estado de verificação", exception);
         }
     }
 
@@ -90,7 +91,7 @@ public class AccountActionTokenStore {
             return HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256")
                     .digest(value.getBytes(StandardCharsets.UTF_8)));
         } catch (Exception exception) {
-            throw new IllegalStateException("Could not hash account token", exception);
+            throw new IllegalStateException("Não foi possível gerar o hash do token da conta", exception);
         }
     }
 }

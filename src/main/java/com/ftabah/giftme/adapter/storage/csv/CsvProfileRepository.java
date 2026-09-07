@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+/** Repositório de perfis e tamanhos personalizados persistido em CSV. */
 @Repository
 public class CsvProfileRepository implements ProfileRepository {
 
@@ -50,13 +51,13 @@ public class CsvProfileRepository implements ProfileRepository {
             List<List<String>> customRows = store.read(CUSTOM_SIZE_FILE);
             return store.read(PROFILE_FILE).stream().map(row -> fromRow(row, customRows)).toList();
         } catch (IOException | RuntimeException exception) {
-            throw new IllegalStateException("Could not read profiles", exception);
+            throw new IllegalStateException("Não foi possível ler os perfis", exception);
         }
     }
 
     private Profile fromRow(List<String> row, List<List<String>> customRows) {
         if (row.size() != 9 && row.size() != 10) {
-            throw new IllegalStateException("Invalid profile record");
+            throw new IllegalStateException("Registro de perfil inválido");
         }
         UUID userId = UUID.fromString(row.get(0));
         List<CustomSize> sizes = customRows.stream()
@@ -80,7 +81,7 @@ public class CsvProfileRepository implements ProfileRepository {
                     profile.photo() == null ? "" : Base64.getEncoder().encodeToString(profile.photo().bytes())
             )).toList());
         } catch (IOException exception) {
-            throw new IllegalStateException("Could not write profiles", exception);
+            throw new IllegalStateException("Não foi possível gravar os perfis", exception);
         }
     }
 
@@ -89,7 +90,7 @@ public class CsvProfileRepository implements ProfileRepository {
             store.replace(CUSTOM_SIZE_FILE, profiles.stream().flatMap(profile -> profile.customSizes().stream()
                     .map(size -> List.of(profile.userId().toString(), size.name(), size.value()))).toList());
         } catch (IOException exception) {
-            throw new IllegalStateException("Could not write custom sizes", exception);
+            throw new IllegalStateException("Não foi possível gravar as medidas personalizadas", exception);
         }
     }
 }

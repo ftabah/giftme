@@ -2,6 +2,7 @@ package com.ftabah.giftme.domain;
 
 import java.util.Arrays;
 
+/** Foto de perfil validada por formato e tamanho máximo. */
 public final class ProfilePhoto {
 
     public static final int MAX_BYTES = 2 * 1024 * 1024;
@@ -15,12 +16,12 @@ public final class ProfilePhoto {
 
     public ProfilePhoto(byte[] bytes, String mediaType) {
         if (bytes == null || bytes.length == 0 || bytes.length > MAX_BYTES) {
-            throw new IllegalArgumentException("Photo must be between 1 byte and 2 MiB");
+            throw new IllegalArgumentException("A foto deve ter entre 1 byte e 2 MiB");
         }
         boolean png = "image/png".equals(mediaType) && hasSignature(bytes, PNG_SIGNATURE);
         boolean jpeg = "image/jpeg".equals(mediaType) && hasSignature(bytes, JPEG_SIGNATURE);
         if (!png && !jpeg) {
-            throw new IllegalArgumentException("Photo must be a valid PNG or JPEG");
+            throw new IllegalArgumentException("A foto deve ser um PNG ou JPEG válido");
         }
         this.bytes = bytes.clone();
         this.mediaType = mediaType;

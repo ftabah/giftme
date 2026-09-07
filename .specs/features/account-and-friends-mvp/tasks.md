@@ -164,6 +164,7 @@ T13 -> T14
 
 **Tests**: integration
 **Gate**: full
+**Status**: Done - `mvn -q test` passed with CSV round-trip and atomic replacement coverage.
 
 ### T7: Implement CSV repository adapters
 

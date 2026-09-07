@@ -14,11 +14,18 @@ public final class Profile {
     private final String shoeSize;
     private final String waistSize;
     private final String shirtSize;
+    private final String interests;
     private final List<CustomSize> customSizes;
     private final ProfilePhoto photo;
 
     public Profile(UUID userId, String name, int age, String height, String shoeSize,
                    String waistSize, String shirtSize, List<CustomSize> customSizes,
+                   ProfilePhoto photo) {
+        this(userId, name, age, height, shoeSize, waistSize, shirtSize, "", customSizes, photo);
+    }
+
+    public Profile(UUID userId, String name, int age, String height, String shoeSize,
+                   String waistSize, String shirtSize, String interests, List<CustomSize> customSizes,
                    ProfilePhoto photo) {
         if (userId == null) {
             throw new IllegalArgumentException("Profile user id is required");
@@ -33,6 +40,7 @@ public final class Profile {
         this.shoeSize = required(shoeSize, "Shoe size");
         this.waistSize = required(waistSize, "Waist size");
         this.shirtSize = required(shirtSize, "Shirt size");
+        this.interests = interests == null ? "" : interests.trim();
         this.customSizes = immutableCustomSizes(customSizes);
         this.photo = photo;
     }
@@ -55,7 +63,7 @@ public final class Profile {
     }
 
     private Profile copyWith(List<CustomSize> sizes, ProfilePhoto updatedPhoto) {
-        return new Profile(userId, name, age, height, shoeSize, waistSize, shirtSize, sizes, updatedPhoto);
+        return new Profile(userId, name, age, height, shoeSize, waistSize, shirtSize, interests, sizes, updatedPhoto);
     }
 
     private static List<CustomSize> immutableCustomSizes(List<CustomSize> sizes) {
@@ -87,6 +95,7 @@ public final class Profile {
     public String shoeSize() { return shoeSize; }
     public String waistSize() { return waistSize; }
     public String shirtSize() { return shirtSize; }
+    public String interests() { return interests; }
     public List<CustomSize> customSizes() { return customSizes; }
     public ProfilePhoto photo() { return photo; }
 }

@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,8 +47,8 @@ public class ProfileController {
         UUID userId = userId(authentication);
         Profile existing = profiles.findByUserId(userId).orElse(null);
         Profile profile = new Profile(userId, request.name(), request.age(), request.height(), request.shoeSize(),
-                request.waistSize(), request.shirtSize(), request.customSizes().stream()
-                .map(size -> new CustomSize(size.name(), size.value())).toList(), existing == null ? null : existing.photo());
+            request.waistSize(), request.shirtSize(), request.interests(), request.customSizes().stream()
+            .map(size -> new CustomSize(size.name(), size.value())).toList(), existing == null ? null : existing.photo());
         return ProfileResponse.from(profiles.save(profile));
     }
 
@@ -67,6 +68,7 @@ public class ProfileController {
             @NotBlank String shoeSize,
             @NotBlank String waistSize,
             @NotBlank String shirtSize,
+            @Size(max = 1000) String interests,
             List<CustomSizeRequest> customSizes) {
         public ProfileRequest {
             customSizes = customSizes == null ? List.of() : customSizes;
@@ -77,7 +79,7 @@ public class ProfileController {
 
     public record ProfileResponse(UUID userId, String name, int age, String height, String shoeSize,
                                   String waistSize, String shirtSize, List<CustomSize> customSizes,
-                                  String photoMediaType, String photoBase64) {
+                                  String interests, String photoMediaType, String photoBase64) {
         static ProfileResponse from(Profile profile) {
             return from(profile, true);
         }
@@ -87,6 +89,7 @@ public class ProfileController {
                     complete ? profile.height() : null,
                     complete ? profile.shoeSize() : null, complete ? profile.waistSize() : null,
                     complete ? profile.shirtSize() : null, complete ? profile.customSizes() : List.of(),
+                    complete ? profile.interests() : null,
                     profile.photo() == null ? null : profile.photo().mediaType(),
                     profile.photo() == null ? null : Base64.getEncoder().encodeToString(profile.photo().bytes()));
         }

@@ -29,10 +29,10 @@
 ## Handoff
 
 - **Feature**: account-and-friends-mvp
-- **Phase / Task**: Execute / T8 - security adapters
-- **Completed**: Specification, context, design, task plan, Maven build, Spring Boot entry point, typed CSV configuration, context-load test, validated account/profile models, friendship transitions, application ports, CSV storage, repository adapters, BCrypt password hashing, JWT tokens, and Bearer security.
+- **Phase / Task**: Execute / T9 - registration and login API
+- **Completed**: Specification, context, design, task plan, Maven build, Spring Boot entry point, typed CSV configuration, context-load test, validated account/profile models, friendship transitions, application ports, CSV storage, repository adapters, BCrypt password hashing, JWT tokens, Bearer security, and registration/login endpoints.
 - **In-progress**: None.
-- **Next step**: Implement registration and login API in T9.
+- **Next step**: Implement authenticated profile update API in T10.
 - **Blockers**: None. JDK 21 and Maven 3.9.11 are installed under the user profile.
-- **Uncommitted files**: `.specs/STATE.md`, `.specs/features/account-and-friends-mvp/tasks.md`, `src/main/java/com/ftabah/giftme/adapter/security/`, `src/test/java/com/ftabah/giftme/adapter/security/`
+- **Uncommitted files**: `.specs/STATE.md`, `.specs/features/account-and-friends-mvp/tasks.md`, `src/main/java/com/ftabah/giftme/application/AuthService.java`, `src/main/java/com/ftabah/giftme/adapter/web/AuthController.java`, `src/test/java/com/ftabah/giftme/adapter/web/AuthControllerIntegrationTest.java`
 - **Branch**: main

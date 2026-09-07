@@ -215,6 +215,7 @@ T13 -> T14
 
 **Tests**: integration
 **Gate**: full
+**Status**: Done - `mvn -q test` passed with registration and login coverage.
 
 ### Phase 4: Profile and Discovery Tasks
 

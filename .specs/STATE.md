@@ -29,10 +29,10 @@
 ## Handoff
 
 - **Feature**: account-and-friends-mvp
-- **Phase / Task**: Execute / T6 - CSV codec and atomic file writer
-- **Completed**: Specification, context, design, task plan, Maven build, Spring Boot entry point, typed CSV configuration, context-load test, validated account/profile models, friendship transitions, application ports, and CSV storage.
+- **Phase / Task**: Execute / T7 - CSV repository adapters
+- **Completed**: Specification, context, design, task plan, Maven build, Spring Boot entry point, typed CSV configuration, context-load test, validated account/profile models, friendship transitions, application ports, CSV storage, and repository adapters.
 - **In-progress**: None.
-- **Next step**: Implement CSV repository adapters in T7.
+- **Next step**: Implement password and bearer-token security adapters in T8.
 - **Blockers**: None. JDK 21 and Maven 3.9.11 are installed under the user profile.
-- **Uncommitted files**: `.specs/STATE.md`, `.specs/features/account-and-friends-mvp/tasks.md`, `src/main/java/com/ftabah/giftme/adapter/storage/csv/`, `src/test/java/com/ftabah/giftme/adapter/storage/csv/`
+- **Uncommitted files**: `.specs/STATE.md`, `.specs/features/account-and-friends-mvp/tasks.md`, `.specs/features/account-and-friends-mvp/spec.md`, `src/main/java/com/ftabah/giftme/GiftMeApplication.java`, `src/main/java/com/ftabah/giftme/adapter/storage/csv/`, `src/test/java/com/ftabah/giftme/adapter/storage/csv/`
 - **Branch**: main

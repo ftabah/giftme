@@ -180,6 +180,7 @@ T13 -> T14
 
 **Tests**: integration
 **Gate**: full
+**Status**: Done - `mvn -q test` passed with repository persistence coverage.
 
 ### Phase 3: Authentication Tasks
 

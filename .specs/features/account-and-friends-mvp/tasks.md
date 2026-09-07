@@ -265,6 +265,7 @@ T13 -> T14
 
 **Tests**: integration
 **Gate**: full
+**Status**: Done - `mvn -q test` passed with authenticated search and profile consultation wiring.
 
 ### Phase 5: Friendships and Acceptance Tasks
 

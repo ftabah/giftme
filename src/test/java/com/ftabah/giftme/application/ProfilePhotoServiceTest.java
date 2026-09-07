@@ -51,6 +51,7 @@ class ProfilePhotoServiceTest {
 
         TestRepository(Profile profile) { this.profile = profile; }
         public Optional<Profile> findByUserId(UUID userId) { return Optional.of(profile); }
+        public List<Profile> findByNameQuery(String query) { return List.of(); }
         public Profile save(Profile profile) { this.profile = profile; return profile; }
     }
 }

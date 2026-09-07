@@ -29,6 +29,12 @@ public class CsvProfileRepository implements ProfileRepository {
     }
 
     @Override
+    public List<Profile> findByNameQuery(String query) {
+        String normalized = query.trim().toLowerCase();
+        return readAll().stream().filter(profile -> profile.name().toLowerCase().contains(normalized)).toList();
+    }
+
+    @Override
     public Profile save(Profile profile) {
         List<Profile> profiles = readAll().stream()
                 .filter(existing -> !existing.userId().equals(profile.userId()))

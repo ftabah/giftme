@@ -29,10 +29,10 @@
 ## Handoff
 
 - **Feature**: account-and-friends-mvp
-- **Phase / Task**: Execute / T2 - application bootstrap
-- **Completed**: Specification, context, design, task plan, Maven build, Spring Boot entry point, typed CSV configuration, and context-load test.
+- **Phase / Task**: Execute / T3 - account and profile domain models
+- **Completed**: Specification, context, design, task plan, Maven build, Spring Boot entry point, typed CSV configuration, context-load test, and validated domain models.
 - **In-progress**: None.
-- **Next step**: Implement account and profile domain models in T3.
+- **Next step**: Implement friendship domain state in T4.
 - **Blockers**: None. JDK 21 and Maven 3.9.11 are installed under the user profile.
-- **Uncommitted files**: `.specs/STATE.md`, `.specs/features/account-and-friends-mvp/spec.md`, `.specs/features/account-and-friends-mvp/context.md`, `.specs/features/account-and-friends-mvp/design.md`, `.specs/features/account-and-friends-mvp/tasks.md`, `pom.xml`, `src/main/java/com/ftabah/giftme/GiftMeApplication.java`, `src/main/java/com/ftabah/giftme/CsvStorageProperties.java`, `src/test/java/com/ftabah/giftme/GiftMeApplicationTests.java`
+- **Uncommitted files**: `.specs/STATE.md`, `.specs/features/account-and-friends-mvp/tasks.md`, `src/main/java/com/ftabah/giftme/domain/`, `src/test/java/com/ftabah/giftme/domain/ProfileDomainTest.java`
 - **Branch**: main

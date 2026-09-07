@@ -115,6 +115,8 @@ T13 -> T14
 **Tests**: unit
 **Gate**: quick
 
+**Status**: Done - `mvn -q test` passed with domain validation coverage.
+
 ### T4: Implement friendship domain state
 
 **What**: Implement friendship request status and recipient-only transition rules.

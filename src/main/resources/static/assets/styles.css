@@ -1,4 +1,5 @@
 .preview-photo { aspect-ratio: 1 / 1; height: auto; max-height: none; object-fit: cover; }
+img.preview-photo { aspect-ratio: auto; height: auto; max-height: none !important; object-fit: contain; }
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
 
 :root { --ink: #17252b; --muted: #6c7c80; --paper: #f4f1eb; --white: #fffdf8; --teal: #0b7772; --teal-dark: #07514f; --coral: #ed866e; --line: #d7d9d1; --shadow: 0 24px 70px rgba(22, 48, 50, .12); }

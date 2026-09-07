@@ -233,6 +233,7 @@ T13 -> T14
 
 **Tests**: integration
 **Gate**: full
+**Status**: Done - `mvn -q test` passed with authenticated profile endpoint wiring.
 
 ### T11: Add profile photo handling
 

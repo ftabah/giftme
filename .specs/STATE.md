@@ -29,10 +29,10 @@
 ## Handoff
 
 - **Feature**: account-and-friends-mvp
-- **Phase / Task**: Execute / T9 - registration and login API
-- **Completed**: Specification, context, design, task plan, Maven build, Spring Boot entry point, typed CSV configuration, context-load test, validated account/profile models, friendship transitions, application ports, CSV storage, repository adapters, BCrypt password hashing, JWT tokens, Bearer security, and registration/login endpoints.
+- **Phase / Task**: Execute / T10 - profile update API
+- **Completed**: Specification, context, design, task plan, Maven build, Spring Boot entry point, typed CSV configuration, context-load test, validated account/profile models, friendship transitions, application ports, CSV storage, repository adapters, BCrypt password hashing, JWT tokens, Bearer security, registration/login endpoints, and authenticated profile endpoints.
 - **In-progress**: None.
-- **Next step**: Implement authenticated profile update API in T10.
+- **Next step**: Add PNG photo handling in T11.
 - **Blockers**: None. JDK 21 and Maven 3.9.11 are installed under the user profile.
-- **Uncommitted files**: `.specs/STATE.md`, `.specs/features/account-and-friends-mvp/tasks.md`, `src/main/java/com/ftabah/giftme/application/AuthService.java`, `src/main/java/com/ftabah/giftme/adapter/web/AuthController.java`, `src/test/java/com/ftabah/giftme/adapter/web/AuthControllerIntegrationTest.java`
+- **Uncommitted files**: `.specs/STATE.md`, `.specs/features/account-and-friends-mvp/tasks.md`, `src/main/java/com/ftabah/giftme/adapter/web/ProfileController.java`
 - **Branch**: main

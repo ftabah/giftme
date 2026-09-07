@@ -29,10 +29,10 @@
 ## Handoff
 
 - **Feature**: account-and-friends-mvp
-- **Phase / Task**: Execute / T1 - Maven build
-- **Completed**: Specification, context, design, and task plan approved; initial `pom.xml` created.
-- **In-progress**: T2 - application bootstrap.
-- **Next step**: Create the Spring Boot entry point and context-load test.
+- **Phase / Task**: Execute / T2 - application bootstrap
+- **Completed**: Specification, context, design, task plan, Maven build, Spring Boot entry point, typed CSV configuration, and context-load test.
+- **In-progress**: None.
+- **Next step**: Implement account and profile domain models in T3.
 - **Blockers**: None. JDK 21 and Maven 3.9.11 are installed under the user profile.
-- **Uncommitted files**: `.specs/STATE.md`, `.specs/features/account-and-friends-mvp/spec.md`, `.specs/features/account-and-friends-mvp/context.md`, `.specs/features/account-and-friends-mvp/design.md`, `.specs/features/account-and-friends-mvp/tasks.md`, `pom.xml`
+- **Uncommitted files**: `.specs/STATE.md`, `.specs/features/account-and-friends-mvp/spec.md`, `.specs/features/account-and-friends-mvp/context.md`, `.specs/features/account-and-friends-mvp/design.md`, `.specs/features/account-and-friends-mvp/tasks.md`, `pom.xml`, `src/main/java/com/ftabah/giftme/GiftMeApplication.java`, `src/main/java/com/ftabah/giftme/CsvStorageProperties.java`, `src/test/java/com/ftabah/giftme/GiftMeApplicationTests.java`
 - **Branch**: main

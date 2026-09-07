@@ -98,6 +98,8 @@ T13 -> T14
 **Tests**: integration
 **Gate**: full
 
+**Status**: Done - `mvn -q test` passed with JDK 21.
+
 ### T3: Implement account and profile domain models
 
 **What**: Implement validated account, profile, custom-size, and photo domain types.

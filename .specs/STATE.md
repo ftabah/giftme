@@ -29,10 +29,10 @@
 ## Handoff
 
 - **Feature**: account-and-friends-mvp
-- **Phase / Task**: Execute / T3 - account and profile domain models
-- **Completed**: Specification, context, design, task plan, Maven build, Spring Boot entry point, typed CSV configuration, context-load test, and validated domain models.
+- **Phase / Task**: Execute / T4 - friendship domain state
+- **Completed**: Specification, context, design, task plan, Maven build, Spring Boot entry point, typed CSV configuration, context-load test, validated account/profile domain models, and friendship transitions.
 - **In-progress**: None.
-- **Next step**: Implement friendship domain state in T4.
+- **Next step**: Define application ports in T5.
 - **Blockers**: None. JDK 21 and Maven 3.9.11 are installed under the user profile.
-- **Uncommitted files**: `.specs/STATE.md`, `.specs/features/account-and-friends-mvp/tasks.md`, `src/main/java/com/ftabah/giftme/domain/`, `src/test/java/com/ftabah/giftme/domain/ProfileDomainTest.java`
+- **Uncommitted files**: `.specs/STATE.md`, `.specs/features/account-and-friends-mvp/tasks.md`, `src/main/java/com/ftabah/giftme/domain/FriendshipRequest.java`, `src/test/java/com/ftabah/giftme/domain/FriendshipRequestTest.java`
 - **Branch**: main

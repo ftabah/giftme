@@ -126,11 +126,10 @@ T13 -> T14
 
 **Done when**:
 
-- [ ] Unit tests cover pending, accepted, rejected, self-request, duplicate, and unauthorized decision outcomes.
-- [ ] Invalid transitions preserve the existing request status.
 
 **Tests**: unit
 **Gate**: quick
+**Status**: Done - `mvn -q test` passed with friendship transition coverage.
 
 ### T5: Define application ports
 

@@ -29,10 +29,10 @@
 ## Handoff
 
 - **Feature**: account-and-friends-mvp
-- **Phase / Task**: Execute / T12 - profile search and consultation
-- **Completed**: Specification, context, design, task plan, Maven build, Spring Boot entry point, typed CSV configuration, context-load test, validated account/profile models, friendship transitions, application ports, CSV storage, repository adapters, BCrypt password hashing, JWT tokens, Bearer security, registration/login endpoints, authenticated profile endpoints, PNG photo handling, and authenticated profile search.
+- **Phase / Task**: Execute / T13 - friendship request API
+- **Completed**: Specification, context, design, task plan, Maven build, Spring Boot entry point, typed CSV configuration, context-load test, validated account/profile models, friendship transitions, application ports, CSV storage, repository adapters, BCrypt password hashing, JWT tokens, Bearer security, registration/login endpoints, authenticated profile endpoints, PNG photo handling, authenticated profile search, and friendship request endpoints.
 - **In-progress**: None.
-- **Next step**: Implement friendship request API in T13.
+- **Next step**: Implement recipient-only friendship decisions in T14.
 - **Blockers**: None. JDK 21 and Maven 3.9.11 are installed under the user profile.
-- **Uncommitted files**: `.specs/STATE.md`, `.specs/features/account-and-friends-mvp/tasks.md`, `.specs/features/account-and-friends-mvp/application/port/ProfileRepository.java`, `src/main/java/com/ftabah/giftme/adapter/storage/csv/CsvProfileRepository.java`, `src/main/java/com/ftabah/giftme/adapter/web/ProfileSearchController.java`, `src/test/java/com/ftabah/giftme/application/ProfilePhotoServiceTest.java`
+- **Uncommitted files**: `.specs/STATE.md`, `.specs/features/account-and-friends-mvp/tasks.md`, `src/main/java/com/ftabah/giftme/adapter/web/FriendshipController.java`
 - **Branch**: main

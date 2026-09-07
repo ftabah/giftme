@@ -283,6 +283,7 @@ T13 -> T14
 
 **Tests**: integration
 **Gate**: full
+**Status**: Done - `mvn -q test` passed with friendship request wiring.
 
 ### T14: Implement friendship decision API
 

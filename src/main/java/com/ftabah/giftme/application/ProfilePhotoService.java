@@ -27,7 +27,7 @@ public class ProfilePhotoService {
             ProfilePhoto photo = new ProfilePhoto(file.getBytes(), file.getContentType());
             return profiles.save(profile.withPhoto(photo));
         } catch (IOException | IllegalArgumentException exception) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Photo must be a PNG up to 2 MiB", exception);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Photo must be PNG or JPEG up to 2 MiB", exception);
         }
     }
 }

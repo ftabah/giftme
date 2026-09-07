@@ -14,6 +14,7 @@ class ProfileDomainTest {
     private static final byte[] PNG = {
             (byte) 0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a
     };
+        private static final byte[] JPEG = {(byte) 0xff, (byte) 0xd8, (byte) 0xff, 0x01};
 
     @Test
     void acceptsValidProfileAndCustomSize() {
@@ -41,10 +42,11 @@ class ProfileDomainTest {
     }
 
     @Test
-    void acceptsPngAndRejectsWrongTypeOrOversizedPhoto() {
+    void acceptsPngAndJpegAndRejectsWrongTypeOrOversizedPhoto() {
         ProfilePhoto photo = new ProfilePhoto(PNG, "image/png");
         assertThat(photo.mediaType()).isEqualTo("image/png");
         assertThat(photo.bytes()).containsExactly(PNG);
+        assertThat(new ProfilePhoto(JPEG, "image/jpeg").mediaType()).isEqualTo("image/jpeg");
 
         assertThatThrownBy(() -> new ProfilePhoto(new byte[]{1, 2, 3}, "image/jpeg"))
                 .isInstanceOf(IllegalArgumentException.class);

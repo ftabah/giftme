@@ -29,10 +29,10 @@
 ## Handoff
 
 - **Feature**: account-and-friends-mvp
-- **Phase / Task**: Execute / T13 - friendship request API
-- **Completed**: Specification, context, design, task plan, Maven build, Spring Boot entry point, typed CSV configuration, context-load test, validated account/profile models, friendship transitions, application ports, CSV storage, repository adapters, BCrypt password hashing, JWT tokens, Bearer security, registration/login endpoints, authenticated profile endpoints, PNG photo handling, authenticated profile search, and friendship request endpoints.
+- **Phase / Task**: Execute / T14 - friendship decision API
+- **Completed**: Specification, context, design, task plan, Maven build, Spring Boot entry point, typed CSV configuration, context-load test, validated account/profile models, friendship transitions, application ports, CSV storage, repository adapters, BCrypt password hashing, JWT tokens, Bearer security, registration/login endpoints, authenticated profile endpoints, PNG photo handling, authenticated profile search, friendship request endpoints, and recipient-only friendship decisions.
 - **In-progress**: None.
-- **Next step**: Implement recipient-only friendship decisions in T14.
+- **Next step**: Run acceptance review and add a client UI in a future increment.
 - **Blockers**: None. JDK 21 and Maven 3.9.11 are installed under the user profile.
-- **Uncommitted files**: `.specs/STATE.md`, `.specs/features/account-and-friends-mvp/tasks.md`, `src/main/java/com/ftabah/giftme/adapter/web/FriendshipController.java`
+- **Uncommitted files**: `.specs/STATE.md`, `.specs/features/account-and-friends-mvp/tasks.md`, `src/main/java/com/ftabah/giftme/adapter/web/FriendshipDecisionController.java`
 - **Branch**: main

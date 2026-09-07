@@ -300,6 +300,7 @@ T13 -> T14
 
 **Tests**: integration
 **Gate**: build
+**Status**: Done - `mvn -q verify` passed with the full backend test suite.
 
 ## Dependency Validation
 

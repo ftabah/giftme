@@ -79,8 +79,14 @@ public class ProfileController {
                                   String waistSize, String shirtSize, List<CustomSize> customSizes,
                                   String photoMediaType, String photoBase64) {
         static ProfileResponse from(Profile profile) {
-            return new ProfileResponse(profile.userId(), profile.name(), profile.age(), profile.height(),
-                    profile.shoeSize(), profile.waistSize(), profile.shirtSize(), profile.customSizes(),
+            return from(profile, true);
+        }
+
+        static ProfileResponse from(Profile profile, boolean complete) {
+            return new ProfileResponse(profile.userId(), profile.name(), complete ? profile.age() : 0,
+                    complete ? profile.height() : null,
+                    complete ? profile.shoeSize() : null, complete ? profile.waistSize() : null,
+                    complete ? profile.shirtSize() : null, complete ? profile.customSizes() : List.of(),
                     profile.photo() == null ? null : profile.photo().mediaType(),
                     profile.photo() == null ? null : Base64.getEncoder().encodeToString(profile.photo().bytes()));
         }

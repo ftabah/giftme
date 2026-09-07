@@ -199,6 +199,7 @@ T13 -> T14
 
 **Tests**: unit and integration
 **Gate**: full
+**Status**: Done - `mvn -q test` passed with password and JWT coverage.
 
 ### T9: Implement registration and login API
 

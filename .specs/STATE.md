@@ -29,10 +29,10 @@
 ## Handoff
 
 - **Feature**: account-and-friends-mvp
-- **Phase / Task**: Execute / T7 - CSV repository adapters
-- **Completed**: Specification, context, design, task plan, Maven build, Spring Boot entry point, typed CSV configuration, context-load test, validated account/profile models, friendship transitions, application ports, CSV storage, and repository adapters.
+- **Phase / Task**: Execute / T8 - security adapters
+- **Completed**: Specification, context, design, task plan, Maven build, Spring Boot entry point, typed CSV configuration, context-load test, validated account/profile models, friendship transitions, application ports, CSV storage, repository adapters, BCrypt password hashing, JWT tokens, and Bearer security.
 - **In-progress**: None.
-- **Next step**: Implement password and bearer-token security adapters in T8.
+- **Next step**: Implement registration and login API in T9.
 - **Blockers**: None. JDK 21 and Maven 3.9.11 are installed under the user profile.
-- **Uncommitted files**: `.specs/STATE.md`, `.specs/features/account-and-friends-mvp/tasks.md`, `.specs/features/account-and-friends-mvp/spec.md`, `src/main/java/com/ftabah/giftme/GiftMeApplication.java`, `src/main/java/com/ftabah/giftme/adapter/storage/csv/`, `src/test/java/com/ftabah/giftme/adapter/storage/csv/`
+- **Uncommitted files**: `.specs/STATE.md`, `.specs/features/account-and-friends-mvp/tasks.md`, `src/main/java/com/ftabah/giftme/adapter/security/`, `src/test/java/com/ftabah/giftme/adapter/security/`
 - **Branch**: main

@@ -249,6 +249,7 @@ T13 -> T14
 
 **Tests**: integration
 **Gate**: full
+**Status**: Done - `mvn -q test` passed with PNG validation and photo preservation coverage.
 
 ### T12: Implement profile search and consultation
 

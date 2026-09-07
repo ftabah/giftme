@@ -29,10 +29,10 @@
 ## Handoff
 
 - **Feature**: account-and-friends-mvp
-- **Phase / Task**: Execute / T10 - profile update API
-- **Completed**: Specification, context, design, task plan, Maven build, Spring Boot entry point, typed CSV configuration, context-load test, validated account/profile models, friendship transitions, application ports, CSV storage, repository adapters, BCrypt password hashing, JWT tokens, Bearer security, registration/login endpoints, and authenticated profile endpoints.
+- **Phase / Task**: Execute / T11 - profile photo handling
+- **Completed**: Specification, context, design, task plan, Maven build, Spring Boot entry point, typed CSV configuration, context-load test, validated account/profile models, friendship transitions, application ports, CSV storage, repository adapters, BCrypt password hashing, JWT tokens, Bearer security, registration/login endpoints, authenticated profile endpoints, and PNG photo handling.
 - **In-progress**: None.
-- **Next step**: Add PNG photo handling in T11.
+- **Next step**: Implement authenticated profile search and consultation in T12.
 - **Blockers**: None. JDK 21 and Maven 3.9.11 are installed under the user profile.
-- **Uncommitted files**: `.specs/STATE.md`, `.specs/features/account-and-friends-mvp/tasks.md`, `src/main/java/com/ftabah/giftme/adapter/web/ProfileController.java`
+- **Uncommitted files**: `.specs/STATE.md`, `.specs/features/account-and-friends-mvp/tasks.md`, `src/main/java/com/ftabah/giftme/application/ProfilePhotoService.java`, `src/main/java/com/ftabah/giftme/adapter/web/ProfileController.java`, `src/test/java/com/ftabah/giftme/application/ProfilePhotoServiceTest.java`
 - **Branch**: main

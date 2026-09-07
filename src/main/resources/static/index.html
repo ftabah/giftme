@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GiftMe | Medidas que aproximam</title>
+    <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+<main class="shell">
+    <section id="auth-view" class="auth-layout">
+        <div class="auth-intro">
+            <p class="eyebrow">GIFTME / PRIVATE CIRCLE</p>
+            <h1>O presente certo começa por conhecer.</h1>
+            <p class="intro-copy">Guarde suas medidas, encontre seus amigos e nunca mais erre o tamanho de um presente.</p>
+            <div class="intro-mark" aria-hidden="true"><span>42</span><span>M</span><span>90</span></div>
+        </div>
+        <div class="auth-card">
+            <div class="brand-lockup"><span class="brand-dot"></span><span>giftme</span></div>
+            <div class="auth-tabs"><button class="tab active" data-auth-mode="login">Entrar</button><button class="tab" data-auth-mode="register">Criar conta</button></div>
+            <form id="auth-form">
+                <label>E-mail<input id="auth-email" type="email" autocomplete="email" required placeholder="voce@email.com"></label>
+                <label>Senha<input id="auth-password" type="password" autocomplete="current-password" minlength="8" required placeholder="mínimo de 8 caracteres"></label>
+                <button class="primary-button" type="submit"><span id="auth-submit-label">Entrar na conta</span><span aria-hidden="true">↗</span></button>
+            </form>
+            <p id="auth-message" class="form-message" role="alert"></p>
+            <p class="api-link"><a href="/swagger-ui/index.html" target="_blank" rel="noreferrer">Abrir documentação Swagger</a></p>
+        </div>
+    </section>
+
+    <section id="app-view" class="app-view hidden">
+        <header class="topbar">
+            <div class="brand-lockup"><span class="brand-dot"></span><span>giftme</span></div>
+            <div class="topbar-actions"><span id="session-label" class="session-label"></span><button id="logout-button" class="quiet-button">Sair</button></div>
+        </header>
+        <div class="dashboard-grid">
+            <aside class="side-panel">
+                <p class="eyebrow">SEU ESPAÇO</p>
+                <h2>Medidas prontas para o próximo gesto.</h2>
+                <nav class="side-nav"><button class="nav-item active" data-section="profile-section">Meu perfil <span>01</span></button><button class="nav-item" data-section="discover-section">Encontrar amigos <span>02</span></button><button class="nav-item" data-section="friends-section">Solicitações <span>03</span></button></nav>
+                <a class="side-swagger" href="/swagger-ui/index.html" target="_blank" rel="noreferrer">API / Swagger <span>↗</span></a>
+            </aside>
+            <div class="content-area">
+                <section id="profile-section" class="content-section active-section">
+                    <div class="section-heading"><div><p class="eyebrow">MEU PERFIL</p><h2>Como você veste o mundo?</h2></div><span class="section-number">01</span></div>
+                    <form id="profile-form" class="profile-form">
+                        <div class="field-grid"><label>Nome completo<input id="profile-name" required></label><label>Idade<input id="profile-age" type="number" min="0" max="150" required></label><label>Altura<input id="profile-height" placeholder="ex.: 1,70 m" required></label><label>Calçado<input id="profile-shoe" placeholder="ex.: 42" required></label><label>Cintura<input id="profile-waist" placeholder="ex.: 90 cm" required></label><label>Camisa<input id="profile-shirt" placeholder="ex.: M" required></label></div>
+                        <div class="custom-heading"><div><p class="eyebrow">DETALHES EXTRAS</p><h3>Tamanhos que só você sabe</h3></div><button id="add-size" class="outline-button" type="button">+ Adicionar medida</button></div>
+                        <div id="custom-sizes" class="custom-list"></div>
+                        <div class="photo-row"><div><p class="eyebrow">FOTO DE REFERÊNCIA</p><p class="muted">PNG de até 2 MiB para facilitar o reconhecimento.</p></div><label class="file-button">Escolher PNG<input id="photo-input" type="file" accept="image/png"></label></div>
+                        <button class="primary-button save-button" type="submit">Salvar meu perfil <span>↗</span></button>
+                    </form>
+                    <p id="profile-message" class="form-message" role="alert"></p>
+                </section>
+
+                <section id="discover-section" class="content-section hidden">
+                    <div class="section-heading"><div><p class="eyebrow">DESCOBERTA</p><h2>Encontre alguém da sua lista.</h2></div><span class="section-number">02</span></div>
+                    <form id="search-form" class="search-row"><input id="search-query" placeholder="Nome ou e-mail exato" required><button class="primary-button" type="submit">Buscar <span>⌕</span></button></form>
+                    <div id="search-results" class="result-grid"><p class="empty-state">Faça uma busca para encontrar perfis.</p></div>
+                </section>
+
+                <section id="friends-section" class="content-section hidden">
+                    <div class="section-heading"><div><p class="eyebrow">CÍRCULO</p><h2>Seus pedidos de amizade.</h2></div><span class="section-number">03</span></div>
+                    <button id="refresh-friends" class="outline-button refresh-button" type="button">Atualizar lista ↻</button>
+                    <div id="friends-results" class="result-grid"><p class="empty-state">Nenhuma solicitação carregada.</p></div>
+                </section>
+            </div>
+        </div>
+    </section>
+</main>
+<script src="/assets/app.js"></script>
+</body>
+</html>

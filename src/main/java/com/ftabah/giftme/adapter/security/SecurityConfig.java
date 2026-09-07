@@ -7,13 +7,15 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import com.ftabah.giftme.adapter.web.EmailProperties;
 
 @Configuration
-@EnableConfigurationProperties(JwtProperties.class)
+@EnableConfigurationProperties({JwtProperties.class, EmailProperties.class})
 public class SecurityConfig {
 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http, BearerTokenFilter bearerTokenFilter)
+        SecurityFilterChain securityFilterChain(HttpSecurity http, BearerTokenFilter bearerTokenFilter,
+                                                                                        RateLimitFilter rateLimitFilter)
             throws Exception {
         return http
                 .csrf(csrf -> csrf.disable())
@@ -24,6 +26,7 @@ public class SecurityConfig {
                         .permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(bearerTokenFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(rateLimitFilter, BearerTokenFilter.class)
                 .build();
     }
 }

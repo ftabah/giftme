@@ -7,4 +7,8 @@ public interface TokenService {
     String create(UUID userId);
 
     UUID parseUserId(String token);
+
+    boolean isRevoked(String token);
+
+    void revoke(String token);
 }

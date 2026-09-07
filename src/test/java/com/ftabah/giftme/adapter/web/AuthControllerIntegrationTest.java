@@ -14,7 +14,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@TestPropertySource(properties = "giftme.storage.data-directory=target/auth-integration")
+@TestPropertySource(properties = {
+        "giftme.storage.data-directory=target/auth-integration",
+        "giftme.email.require-verification=false"
+})
 class AuthControllerIntegrationTest {
 
     @Autowired

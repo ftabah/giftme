@@ -16,11 +16,14 @@ public class AuthService {
     private final AccountRepository accounts;
     private final PasswordHasher passwordHasher;
     private final TokenService tokenService;
+    private final AccountSecurityService accountSecurity;
 
-    public AuthService(AccountRepository accounts, PasswordHasher passwordHasher, TokenService tokenService) {
+    public AuthService(AccountRepository accounts, PasswordHasher passwordHasher, TokenService tokenService,
+                       AccountSecurityService accountSecurity) {
         this.accounts = accounts;
         this.passwordHasher = passwordHasher;
         this.tokenService = tokenService;
+        this.accountSecurity = accountSecurity;
     }
 
     public AuthResponse register(String email, String rawPassword) {
@@ -30,12 +33,16 @@ public class AuthService {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Email already in use");
         }
         Account account = accounts.save(new Account(UUID.randomUUID(), normalizedEmail, passwordHasher.hash(rawPassword)));
+        accountSecurity.sendVerification(account);
         return new AuthResponse(account.id(), tokenService.create(account.id()));
     }
 
     public AuthResponse login(String email, String rawPassword) {
         Account account = accounts.findByEmail(normalizeEmail(email))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid credentials"));
+        if (accountSecurity.requiresVerification() && !accountSecurity.isVerified(account.id())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Email must be verified before login");
+        }
         if (!passwordHasher.matches(rawPassword, account.passwordHash())) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid credentials");
         }

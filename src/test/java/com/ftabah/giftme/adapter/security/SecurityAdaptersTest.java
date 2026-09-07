@@ -6,11 +6,13 @@ import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.mock;
 
 class SecurityAdaptersTest {
 
     private final JwtTokenService tokenService = new JwtTokenService(
-            new JwtProperties("test-secret-with-at-least-32-characters-long", 3600));
+            new JwtProperties("test-secret-with-at-least-32-characters-long", 3600),
+            mock(TokenRevocationStore.class));
 
     @Test
     void hashesPasswordsAndMatchesOnlyTheOriginalPassword() {

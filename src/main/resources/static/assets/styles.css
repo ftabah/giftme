@@ -13,13 +13,9 @@ button { cursor: pointer; }
 .auth-intro h1 { max-width: 700px; margin: 18px 0; font-size: clamp(3rem, 6vw, 6.3rem); line-height: .98; letter-spacing: -.05em; }
 .intro-copy { max-width: 490px; color: var(--muted); font-size: 1.1rem; line-height: 1.7; }
 .eyebrow { margin: 0; color: var(--teal); font: 500 .72rem/1.4 'DM Mono', monospace; letter-spacing: .12em; }
-.mannequin-mark { position: relative; width: 420px; height: 330px; margin-top: 38px; color: var(--teal); }
-.mannequin-head { position: absolute; top: 8px; left: 190px; width: 42px; height: 50px; border: 4px solid var(--teal); border-radius: 48% 48% 45% 45%; }
-.mannequin-neck { position: absolute; top: 53px; left: 202px; width: 18px; height: 25px; border: 4px solid var(--teal); border-bottom: 0; }
-.mannequin-torso { position: absolute; top: 70px; left: 170px; width: 82px; height: 132px; border: 4px solid var(--teal); border-radius: 48% 48% 42% 42% / 20% 20% 80% 80%; background: transparent; }
-.mannequin-arm { position: absolute; top: 77px; width: 15px; height: 130px; border: 4px solid var(--teal); border-radius: 50%; background: transparent; }.mannequin-arm.left { left: 153px; transform: rotate(7deg); }.mannequin-arm.right { left: 254px; transform: rotate(-7deg); }
-.mannequin-leg { position: absolute; top: 188px; width: 23px; height: 123px; border: 4px solid var(--teal); border-top: 0; border-radius: 0 0 14px 14px; background: transparent; }.mannequin-leg.left { left: 181px; transform: rotate(2deg); }.mannequin-leg.right { left: 218px; transform: rotate(-2deg); }
-.measure-label { position: absolute; display: block; padding: 7px 10px; color: var(--ink); background: var(--coral); font: 500 .76rem 'DM Mono', monospace; white-space: nowrap; }.waist-label { top: 119px; left: 70px; }.torso-label { top: 55px; right: 18px; background: #fff; border: 1px solid var(--blue); }.feet-label { bottom: 8px; right: 12px; background: var(--blue); color: #fff; }
+.mannequin-mark { position: relative; width: 420px; height: 390px; margin-top: 30px; color: var(--teal); }
+.mannequin-svg { position: absolute; left: 64px; top: 0; width: 300px; height: 390px; }
+.measure-label { position: absolute; display: block; padding: 7px 10px; color: var(--ink); background: var(--coral); font: 500 .76rem 'DM Mono', monospace; white-space: nowrap; }.waist-label { top: 204px; left: 2px; }.torso-label { top: 112px; right: 0; background: #fff; border: 1px solid var(--blue); }.feet-label { bottom: 8px; right: 6px; background: var(--blue); color: #fff; }
 .auth-card { background: var(--white); padding: 42px; box-shadow: var(--shadow); border-top: 5px solid var(--teal); }
 .brand-lockup { display: flex; align-items: center; gap: 9px; color: var(--teal-dark); font-weight: 800; font-size: 1.15rem; letter-spacing: -.04em; }
 .brand-dot { width: 12px; height: 12px; background: var(--coral); border-radius: 50%; display: inline-block; }

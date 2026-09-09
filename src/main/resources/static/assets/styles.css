@@ -41,3 +41,7 @@ input:focus { border-color: var(--teal); }
 .mannequin-mark svg {  width: 100%;  height: auto;  stroke: #00ff00; /* verde */  fill: transparent;}
 .intro-copy {  margin-top: 0;       /* remove espaço extra acima */  margin-bottom: 12px; /* controla espaço abaixo */}
 .mannequin-mark {  margin-top: 2px;       /* remove espaço extra acima do SVG */}
+
+.intro-mark { display: flex; gap: 0; margin-top: 52px; transform: rotate(-5deg); }
+.intro-mark span { width: 88px; height: 88px; display: grid; place-items: center; border: 1px solid var(--ink); font: 500 1.2rem 'DM Mono', monospace; }
+.intro-mark span:nth-child(2) { background: var(--coral); transform: translateY(-14px); }

@@ -28,6 +28,26 @@
         </div>
     </section>
 
+    <section id="reset-view" class="auth-layout hidden">
+        <div class="auth-intro">
+            <p class="eyebrow">GIFTME / PRIVATE CIRCLE</p>
+            <h1>Volte ao seu círculo.</h1>
+            <p class="intro-copy">Escolha uma nova senha para recuperar o acesso à sua conta.</p>
+            <div class="intro-mark" aria-hidden="true"><span>42</span><span>M</span><span>BRA 38</span></div>
+        </div>
+        <div class="auth-card">
+            <div class="brand-lockup"><span class="brand-dot"></span><span>giftme</span></div>
+            <h2>Redefinir senha</h2>
+            <form id="reset-form">
+                <label>Nova senha<input id="reset-password" type="password" autocomplete="new-password" minlength="8" required placeholder="mínimo de 8 caracteres"></label>
+                <label>Confirme a nova senha<input id="reset-password-confirm" type="password" autocomplete="new-password" minlength="8" required placeholder="repita a nova senha"></label>
+                <button class="primary-button" type="submit">Salvar nova senha <span aria-hidden="true">↗</span></button>
+            </form>
+            <p id="reset-message" class="form-message" role="alert"></p>
+            <a class="forgot-button" href="/">Voltar para entrar</a>
+        </div>
+    </section>
+
     <section id="app-view" class="app-view hidden">
         <header class="topbar">
             <div class="brand-lockup"><span class="brand-dot"></span><span>giftme</span></div>
@@ -71,6 +91,6 @@
         </div>
     </section>
 </main>
-<script src="/assets/app.js?v=20260909-3"></script>
+<script src="/assets/app.js?v=20261001-2"></script>
 </body>
 </html>

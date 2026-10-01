@@ -23,7 +23,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth.requestMatchers(
                                 "/", "/index.html", "/assets/**", "/favicon.ico",
-                                "/swagger-ui/**", "/v3/api-docs/**", "/api/auth/**")
+                                "/swagger-ui/**", "/v3/api-docs/**", "/api/auth/**", "/reset-password")
                         .permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(bearerTokenFilter, UsernamePasswordAuthenticationFilter.class)

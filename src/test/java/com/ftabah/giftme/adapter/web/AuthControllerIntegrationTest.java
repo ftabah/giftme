@@ -8,20 +8,29 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.hamcrest.Matchers.containsString;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestPropertySource(properties = {
-        "giftme.storage.data-directory=target/auth-integration",
-        "giftme.email.require-verification=false"
+        "giftme.storage.data-directory=target/auth-integration"
 })
 class AuthControllerIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+        @Test
+        void servesThePasswordResetPageWithoutAuthentication() throws Exception {
+                mockMvc.perform(get("/reset-password").queryParam("token", "test-token"))
+                                .andExpect(status().isOk())
+                                .andExpect(content().string(containsString("id=\"reset-form\"")));
+        }
 
     @Test
     void registersAndLogsInWithAValidCredential() throws Exception {

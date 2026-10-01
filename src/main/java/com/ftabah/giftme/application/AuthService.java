@@ -4,6 +4,8 @@ import com.ftabah.giftme.application.port.AccountRepository;
 import com.ftabah.giftme.application.port.PasswordHasher;
 import com.ftabah.giftme.application.port.TokenService;
 import com.ftabah.giftme.domain.Account;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -13,6 +15,8 @@ import java.util.UUID;
 /** Coordena cadastro, login e emissão de sessões autenticadas. */
 @Service
 public class AuthService {
+
+    private static final Logger log = LoggerFactory.getLogger(AuthService.class);
 
     private final AccountRepository accounts;
     private final PasswordHasher passwordHasher;
@@ -39,13 +43,19 @@ public class AuthService {
     }
 
     public AuthResponse login(String email, String rawPassword) {
-        Account account = accounts.findByEmail(normalizeEmail(email))
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Credenciais inválidas"));
-        if (accountSecurity.requiresVerification() && !accountSecurity.isVerified(account.id())) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "O e-mail deve ser verificado antes do login");
+        String normalizedEmail = normalizeEmail(email);
+        Account account = accounts.findByEmail(normalizedEmail).orElse(null);
+        if (account == null) {
+            log.warn("Login recusado: conta não cadastrada ({})", maskEmail(normalizedEmail));
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Credenciais inválidas");
         }
         if (!passwordHasher.matches(rawPassword, account.passwordHash())) {
+            log.warn("Login recusado: senha inválida ({})", maskEmail(normalizedEmail));
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Credenciais inválidas");
+        }
+        if (accountSecurity.requiresVerification() && !accountSecurity.isVerified(account.id())) {
+            log.warn("Login recusado: e-mail não verificado ({})", maskEmail(normalizedEmail));
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "O e-mail deve ser verificado antes do login");
         }
         return new AuthResponse(account.id(), tokenService.create(account.id()));
     }
@@ -61,6 +71,14 @@ public class AuthService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O e-mail é obrigatório");
         }
         return email.trim().toLowerCase();
+    }
+
+    private static String maskEmail(String email) {
+        int separator = email.indexOf('@');
+        if (separator <= 0) {
+            return "***";
+        }
+        return email.charAt(0) + "***" + email.substring(separator);
     }
 
     public record AuthResponse(UUID userId, String token) { }

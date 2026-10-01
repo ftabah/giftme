@@ -15,16 +15,18 @@ Open `http://localhost:8080/` for the interface or `http://localhost:8080/swagge
 
 ## Account security
 
-Registration emits an email verification link through the configured `EmailSender`. The local implementation logs the link. Password reset links are also logged locally until an SMTP adapter is configured. Verification is required for login by default.
+Registration emits an email verification link through the configured `EmailSender`. Without SMTP configuration, links are logged locally and verification is not required for login. Enable SMTP and set `GIFTME_EMAIL_REQUIRE_VERIFICATION=true` to require verification.
 
-Configure the application with:
+For Gmail SMTP, use a Google App Password (requires 2-Step Verification), not the normal Google account password. Set these variables in the same PowerShell session used to start the app:
 
-```text
-giftme.email.base-url=http://localhost:8080
-giftme.email.token-expiration-minutes=30
-giftme.email.require-verification=true
-giftme.security.jwt-secret=<at-least-32-characters-secret>
+```powershell
+$env:GMAIL_USERNAME = "your-account@gmail.com"
+$env:GMAIL_APP_PASSWORD = "<Google App Password>"
+$env:GIFTME_EMAIL_SMTP_ENABLED = "true"
+$env:GIFTME_EMAIL_REQUIRE_VERIFICATION = "true"
 ```
+
+The sender address defaults to `GMAIL_USERNAME`; set `GIFTME_EMAIL_FROM` if the account uses a permitted alternate sender. Set `GIFTME_EMAIL_SMTP_ENABLED=false` to use the local log-only sender. Never commit SMTP credentials to the repository.
 
 Account endpoints include `/api/auth/verify-email`, `/api/auth/password/forgot`, `/api/auth/password/reset`, and `/api/auth/logout`. Logout persists a revocation marker for the bearer token.
 

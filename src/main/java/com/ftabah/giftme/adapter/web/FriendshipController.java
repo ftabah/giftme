@@ -2,6 +2,7 @@ package com.ftabah.giftme.adapter.web;
 
 import com.ftabah.giftme.application.port.AccountRepository;
 import com.ftabah.giftme.application.port.FriendshipRepository;
+import com.ftabah.giftme.application.port.ProfileRepository;
 import com.ftabah.giftme.domain.Account;
 import com.ftabah.giftme.domain.FriendshipRequest;
 import jakarta.validation.Valid;
@@ -26,10 +27,13 @@ public class FriendshipController {
 
     private final AccountRepository accounts;
     private final FriendshipRepository friendships;
+    private final ProfileRepository profiles;
 
-    public FriendshipController(AccountRepository accounts, FriendshipRepository friendships) {
+    public FriendshipController(AccountRepository accounts, FriendshipRepository friendships,
+                                ProfileRepository profiles) {
         this.accounts = accounts;
         this.friendships = friendships;
+        this.profiles = profiles;
     }
 
     @PostMapping("/requests")
@@ -45,13 +49,14 @@ public class FriendshipController {
         }
         FriendshipRequest request = FriendshipRequest.pending(UUID.randomUUID(), requesterId,
                 body.recipientId(), Instant.now());
-        return FriendshipResponse.from(friendships.save(request), accounts);
+        return FriendshipResponse.from(friendships.save(request), accounts, profiles, requesterId);
     }
 
     @GetMapping("/requests")
     public List<FriendshipResponse> list(Authentication authentication) {
-        return friendships.findRelevant(userId(authentication)).stream()
-                .map(request -> FriendshipResponse.from(request, accounts)).toList();
+        UUID currentUserId = userId(authentication);
+        return friendships.findRelevant(currentUserId).stream()
+            .map(request -> FriendshipResponse.from(request, accounts, profiles, currentUserId)).toList();
     }
 
     private static UUID userId(Authentication authentication) {
@@ -61,12 +66,18 @@ public class FriendshipController {
     public record FriendshipRequestBody(@NotNull UUID recipientId) { }
 
     public record FriendshipResponse(UUID id, UUID requesterId, UUID recipientId,
-                                     String status, String counterpartEmail) {
-        static FriendshipResponse from(FriendshipRequest request, AccountRepository accounts) {
-            UUID counterpart = request.requesterId();
+                         String status, String counterpartEmail,
+                         ProfileController.ProfileResponse counterpartProfile) {
+        static FriendshipResponse from(FriendshipRequest request, AccountRepository accounts,
+                          ProfileRepository profiles, UUID currentUserId) {
+            UUID counterpart = request.requesterId().equals(currentUserId)
+                    ? request.recipientId() : request.requesterId();
             String email = accounts.findById(counterpart).map(Account::email).orElse("");
+            ProfileController.ProfileResponse profile = request.status() == FriendshipRequest.Status.ACCEPTED
+                ? profiles.findByUserId(counterpart).map(ProfileController.ProfileResponse::from).orElse(null)
+                : null;
             return new FriendshipResponse(request.id(), request.requesterId(), request.recipientId(),
-                    request.status().name(), email);
+                request.status().name(), email, profile);
         }
     }
 }

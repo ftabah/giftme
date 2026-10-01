@@ -31,7 +31,7 @@ public class AuthService {
         this.accountSecurity = accountSecurity;
     }
 
-    public AuthResponse register(String email, String rawPassword) {
+    public RegistrationResponse register(String email, String rawPassword) {
         validatePassword(rawPassword);
         String normalizedEmail = normalizeEmail(email);
         if (accounts.findByEmail(normalizedEmail).isPresent()) {
@@ -39,7 +39,7 @@ public class AuthService {
         }
         Account account = accounts.save(new Account(UUID.randomUUID(), normalizedEmail, passwordHasher.hash(rawPassword)));
         accountSecurity.sendVerification(account);
-        return new AuthResponse(account.id(), tokenService.create(account.id()));
+        return new RegistrationResponse(account.id(), accountSecurity.requiresVerification());
     }
 
     public AuthResponse login(String email, String rawPassword) {
@@ -80,6 +80,8 @@ public class AuthService {
         }
         return email.charAt(0) + "***" + email.substring(separator);
     }
+
+    public record RegistrationResponse(UUID userId, boolean emailVerificationRequired) { }
 
     public record AuthResponse(UUID userId, String token) { }
 }

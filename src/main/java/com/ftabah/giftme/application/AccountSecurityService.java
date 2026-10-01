@@ -45,9 +45,13 @@ public class AccountSecurityService {
     }
 
     public void verify(String token) {
-        UUID userId = tokens.consume(token, "VERIFY", Instant.now())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Token de verificação inválido ou expirado"));
-        tokens.markVerified(userId);
+        Optional<UUID> userId = tokens.consume(token, "VERIFY", Instant.now());
+        if (userId.isEmpty()) {
+            log.warn("Verificação de e-mail recusada: token inválido ou expirado");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Token de verificação inválido ou expirado");
+        }
+        tokens.markVerified(userId.get());
+        log.info("E-mail verificado para conta {}", userId.get());
     }
 
     public void requestPasswordReset(String email) {

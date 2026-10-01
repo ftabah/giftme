@@ -1,5 +1,6 @@
 package com.ftabah.giftme.adapter.security;
 
+import jakarta.servlet.DispatcherType;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +22,8 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth -> auth.requestMatchers(
+                .authorizeHttpRequests(auth -> auth.dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
+                    .requestMatchers(
                                 "/", "/index.html", "/assets/**", "/favicon.ico",
                                 "/swagger-ui/**", "/v3/api-docs/**", "/api/auth/**", "/reset-password")
                         .permitAll()

@@ -5,7 +5,10 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,7 +38,7 @@ public class AuthController {
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public AuthService.AuthResponse register(@Valid @RequestBody CredentialsRequest request) {
+    public AuthService.RegistrationResponse register(@Valid @RequestBody CredentialsRequest request) {
         return authService.register(request.email(), request.password());
     }
 
@@ -44,10 +47,10 @@ public class AuthController {
         return authService.login(request.email(), request.password());
     }
 
-    @GetMapping("/verify-email")
-    public String verifyEmail(@RequestParam String token) {
+    @GetMapping(value = "/verify-email", produces = MediaType.TEXT_HTML_VALUE)
+    public Resource verifyEmail(@RequestParam String token) {
         accountSecurity.verify(token);
-        return "E-mail verificado com sucesso.";
+        return new ClassPathResource("static/email-verified.html");
     }
 
     @PostMapping("/password/forgot")

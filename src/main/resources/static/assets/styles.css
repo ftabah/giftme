@@ -43,5 +43,9 @@ input:focus { border-color: var(--teal); }
 .mannequin-mark {  margin-top: 2px;       /* remove espaço extra acima do SVG */}
 
 .intro-mark { display: flex; gap: 0; margin-top: 52px; transform: rotate(-5deg); }
+.nav-item.has-pending, .nav-item.has-pending:hover, .nav-item.has-pending.active { color: #b42318; border-color: #b42318; font-weight: 800; }
+.nav-item.has-pending span { color: #b42318; font: 700 .8rem 'DM Mono', monospace; }
+.photo-editor .crop-stage { width: 200px; height: 200px; aspect-ratio: 1; }
+img.preview-photo { width: 200px; height: 200px; max-width: 200px; max-height: 200px !important; aspect-ratio: 1; object-fit: cover !important; flex: none; }
 .intro-mark span { width: 88px; height: 88px; display: grid; place-items: center; border: 1px solid var(--ink); font: 500 1.2rem 'DM Mono', monospace; }
 .intro-mark span:nth-child(2) { background: var(--coral); transform: translateY(-14px); }

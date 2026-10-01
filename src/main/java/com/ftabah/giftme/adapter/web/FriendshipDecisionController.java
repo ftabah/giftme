@@ -2,6 +2,7 @@ package com.ftabah.giftme.adapter.web;
 
 import com.ftabah.giftme.application.port.AccountRepository;
 import com.ftabah.giftme.application.port.FriendshipRepository;
+import com.ftabah.giftme.application.port.ProfileRepository;
 import com.ftabah.giftme.domain.FriendshipRequest;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -24,10 +25,13 @@ public class FriendshipDecisionController {
 
     private final FriendshipRepository friendships;
     private final AccountRepository accounts;
+    private final ProfileRepository profiles;
 
-    public FriendshipDecisionController(FriendshipRepository friendships, AccountRepository accounts) {
+    public FriendshipDecisionController(FriendshipRepository friendships, AccountRepository accounts,
+                                        ProfileRepository profiles) {
         this.friendships = friendships;
         this.accounts = accounts;
+        this.profiles = profiles;
     }
 
     @PostMapping("/{requestId}/decision")
@@ -43,7 +47,8 @@ public class FriendshipDecisionController {
                 case "REJECT", "REJECTED" -> request.reject(recipientId, Instant.now());
                 default -> throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A decisão deve ser ACCEPT ou REJECT");
             };
-            return FriendshipController.FriendshipResponse.from(friendships.save(decided), accounts);
+                return FriendshipController.FriendshipResponse.from(friendships.save(decided), accounts, profiles,
+                    recipientId);
         } catch (SecurityException exception) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Somente o destinatário pode decidir", exception);
         } catch (IllegalStateException exception) {

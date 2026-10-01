@@ -5,6 +5,10 @@ import com.ftabah.giftme.domain.Profile;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -15,22 +19,44 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class ProfilePhotoServiceTest {
 
-    private static final byte[] PNG = {(byte) 0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a};
-
     @Test
-    void savesPngAndRejectsInvalidPhotoWithoutReplacingPreviousPhoto() throws Exception {
+    void normalizesPngTo200SquareAndRejectsInvalidPhotoWithoutReplacingPreviousPhoto() throws Exception {
         UUID userId = UUID.randomUUID();
         Profile initial = new Profile(userId, "Ana", 30, "1.70 m", "38", "70", "M", List.of(), null);
         TestRepository repository = new TestRepository(initial);
         ProfilePhotoService service = new ProfilePhotoService(repository);
 
-        Profile saved = service.update(userId, file(PNG, "image/png"));
+        Profile saved = service.update(userId, file(imageBytes("png", 400, 100), "image/png"));
         assertThat(saved.photo().mediaType()).isEqualTo("image/png");
-        assertThat(saved.photo().bytes()).containsExactly(PNG);
+        BufferedImage storedImage = ImageIO.read(new ByteArrayInputStream(saved.photo().bytes()));
+        assertThat(storedImage.getWidth()).isEqualTo(200);
+        assertThat(storedImage.getHeight()).isEqualTo(200);
 
         assertThatThrownBy(() -> service.update(userId, file(new byte[]{1, 2, 3}, "image/jpeg")))
                 .isInstanceOf(RuntimeException.class);
-        assertThat(repository.profile.photo().bytes()).containsExactly(PNG);
+        assertThat(repository.profile.photo().bytes()).containsExactly(saved.photo().bytes());
+    }
+
+    @Test
+    void normalizesJpegTo200SquareAndPreservesItsMediaType() throws Exception {
+        UUID userId = UUID.randomUUID();
+        Profile initial = new Profile(userId, "Ana", 30, "1.70 m", "38", "70", "M", List.of(), null);
+        ProfilePhotoService service = new ProfilePhotoService(new TestRepository(initial));
+
+        Profile saved = service.update(userId, file(imageBytes("jpeg", 80, 300), "image/jpeg"));
+
+        BufferedImage storedImage = ImageIO.read(new ByteArrayInputStream(saved.photo().bytes()));
+        assertThat(saved.photo().mediaType()).isEqualTo("image/jpeg");
+        assertThat(storedImage.getWidth()).isEqualTo(200);
+        assertThat(storedImage.getHeight()).isEqualTo(200);
+    }
+
+    private byte[] imageBytes(String format, int width, int height) throws IOException {
+        BufferedImage image = new BufferedImage(width, height,
+                "png".equals(format) ? BufferedImage.TYPE_INT_ARGB : BufferedImage.TYPE_INT_RGB);
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        ImageIO.write(image, format, output);
+        return output.toByteArray();
     }
 
     private MultipartFile file(byte[] bytes, String contentType) {
